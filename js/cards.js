@@ -8,7 +8,7 @@ const createCards = () => {
         const content = card.querySelector('.card-content');
         const link = card.querySelector('.card-link');
         title.innerText = "ТестКарточка";
-        content.innerText = "Контент карточки\nf\nf\nf\nf\nf\nf\nf\nf\nf\nf\nf\nf\nf\nf\nf\nf\nffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+        content.innerText = "Контент карточки\nЭто пример очень длинного текста, чтоб проверить как карточка будет себя вести. Я люблю майнкрафт, очень сильно, игра хорошая. Еще на Питоне писать люблю, тоже прикольно в целом, даааа";
         link.href = "https://google.com/";
         cardsSection.appendChild(card);
     }
