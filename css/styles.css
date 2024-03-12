@@ -52,7 +52,7 @@ section {
 div {
     margin: 16px;
     padding: 16px;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--primary);
     border-radius: 16px;
     background-color: var(--secondary);
 }
@@ -77,8 +77,20 @@ div .text {
     vertical-align: top;
 }
 
+.card {
+    display: flex;
+    flex-direction: column;
+    max-width: 30%;
+    overflow-wrap: break-word;
+    background-color: var(--accent);
+}
+
 .card-content {
     word-break: normal;
+}
+
+.card-link {
+    margin-top: auto;
 }
 
 @media(max-width: 768px) {
@@ -87,5 +99,8 @@ div .text {
     }
     header {
         text-align: center;
+    }
+    .card {
+        max-width: 90%;
     }
 }

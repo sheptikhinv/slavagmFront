@@ -1,3 +1,3 @@
-import {createCards} from "./cards.js";
+import {getCards} from "./api.js";
 
-createCards();
+getCards();
