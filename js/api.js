@@ -1,14 +1,28 @@
 import {createCards} from "./cards.js";
+import {insertSkills} from "./skills.js";
 
-const baseUrl = 'http://localhost:5141/';
+const BASE_URL = 'http://localhost:5226';
 
 const getCards = () => {
-    fetch(baseUrl + 'api/Cards/getCards')
+    fetch(`${BASE_URL}/Cards/all`)
         .then((response) => response.json())
         .then((data) => {
             createCards(data);
         })
-        .catch((err) => {console.log(err)});
-}
+        .catch((err) => {
+            console.log(err)
+        });
+};
 
-export {getCards}
+const getSkills = () => {
+    fetch(`${BASE_URL}/Skills/all`)
+        .then((response) => response.json())
+        .then((data) => {
+            insertSkills(data);
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+};
+
+export {getCards, getSkills}

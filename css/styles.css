@@ -24,6 +24,7 @@ header {
     font-size: 24px;
     padding: 16px;
     position: sticky;
+    font-weight: bold;
     top: 0;
     width: 100%;
     border-bottom: 1px dashed var(--secondary);
@@ -85,7 +86,7 @@ div .text {
     background-color: var(--accent);
 }
 
-.card-content {
+.card-description {
     word-break: normal;
 }
 
