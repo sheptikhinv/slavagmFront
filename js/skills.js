@@ -10,7 +10,6 @@ const childrenToNode = (children, node) => {
         const skillElement = document.createElement("li");
         skillElement.innerText = child.title;
         if (child.children) {
-            console.log(child.children);
             const skillChildrenElements = document.createElement("ul");
             skillElement.appendChild(skillChildrenElements);
             childrenToNode(child.children, skillChildrenElements);
