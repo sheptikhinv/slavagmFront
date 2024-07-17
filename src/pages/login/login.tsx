@@ -5,12 +5,16 @@ import {login} from "../../api/AuthApi.ts";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
+interface FormValues {
+    password: string;
+}
+
 const Login = () => {
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit} = useForm<FormValues>();
     const [passwordIncorrect, setPasswordIncorrect] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const onSubmit = (values: { password: string }) => {
+    const onSubmit = (values: FormValues) => {
         login(values)
             .then(data => {
                 if (data.accessToken != null) {
