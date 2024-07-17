@@ -2,8 +2,19 @@ import styles from "./admin.module.css";
 
 import {randomPhrase, timeGreeting} from "../../utlis/mems.ts";
 import Collapsible from "../../components/Collapsible/Collapsible.tsx";
+import CollapsibleSkillList from "../../components/CollapsibleRecursiveList/CollapsibleSkillList.tsx";
+import {useEffect, useState} from "react";
+import {getSkills} from "../../api/SkillsApi.ts";
+import {Skill} from "../../types/skill.ts";
 
 const Admin = () => {
+    const [skills, setSkills] = useState<Array<Skill>>();
+
+    useEffect(() => {
+        getSkills()
+            .then(response => setSkills(response))
+            .catch(error => console.error(error));
+    }, []);
 
     return (
         <main className={styles.admin}>
@@ -19,7 +30,7 @@ const Admin = () => {
                     <h3>Ну однажды можно будет менять наверное хз</h3>
                 </Collapsible>
                 <Collapsible title={"Скиллы"}>
-                    <h3>Надо будет скиллы сделать</h3>
+                    {skills ? <CollapsibleSkillList items={skills}/> : "Loading"}
                 </Collapsible>
                 <Collapsible title={"Карточки"}>
                     <h3>Надо будет карточки сделать</h3>

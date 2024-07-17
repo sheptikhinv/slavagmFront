@@ -1,0 +1,33 @@
+div.skill {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+div.skillButtons {
+    margin-left: auto;
+}
+
+div.skill > input {
+
+}
+
+input.skillTitle {
+    width: 50%;
+}
+
+input.skillPriority {
+    width: 32px;
+}
+
+button.skillButton {
+
+}
+
+button.skillButton.add {
+    color: green;
+}
+
+button.skillButton.delete {
+    color: red;
+}
