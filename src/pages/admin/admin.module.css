@@ -1,0 +1,36 @@
+main.admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main.admin > div {
+    padding: 16px;
+    width: 50%;
+}
+
+div.memBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+div.memBlock > h1 {
+    margin: 0;
+}
+
+div.collapsiblesBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+@media(max-width: 768px) {
+    main.admin {
+        padding: 16px;
+    }
+    main.admin > div {
+        width: 100%;
+    }
+}

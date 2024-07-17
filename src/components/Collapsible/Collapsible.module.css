@@ -1,0 +1,36 @@
+.collapsibleHeader {
+    padding: 8px;
+    width: 100%;
+    text-align: left;
+    font-size: 24px;
+    border: none;
+    border-radius: 12px;
+    transition: border-radius 1s ease;
+}
+
+.collapsibleHeader__open {
+    border-radius: 12px 12px 0 0;
+    transition: border-radius 0.1s ease;
+}
+
+.collapsibleHeader::after {
+    content: "+";
+    text-align: right;
+    font-size: 24px;
+    float: right;
+    color: green;
+}
+
+.collapsibleContent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.1s ease;
+    background-color: #3d5657;
+    border-radius: 0 0 12px 12px;
+}
+
+.collapsibleContent__open {
+    max-height: 1000px;
+    padding: 8px;
+    transition: max-height 0.5s ease-in;
+}

@@ -28,7 +28,7 @@ const Index = () => {
     return (
         <>
             <Header/>
-            <main>
+            <main className={styles.index}>
                 <section className={styles.about}>
                     <Surface isPrimary={true}>
                         <>

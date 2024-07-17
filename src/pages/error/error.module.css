@@ -1,0 +1,26 @@
+div.centeredContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+div.content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 16px;
+}
+
+div.content > h1 {
+    margin: 0;
+}
+
+button.homeButton {
+    width: 50%;
+    border: none;
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 32px;
+}
