@@ -4,6 +4,7 @@ import styles from "./CollapsibleRecursiveList.module.css";
 import {getRandomInt} from "../../utlis/random.ts";
 import {addSkill, editSkill, removeSkill} from "../../api/SkillsApi.ts";
 import {useNavigate} from "react-router-dom";
+import {optimizeChanges} from "../../utlis/changes.ts";
 
 const CollapsibleSkillList = ({items}: { items: Array<Skill> }) => {
     const [skills, setSkills] = useState(items);
@@ -14,49 +15,55 @@ const CollapsibleSkillList = ({items}: { items: Array<Skill> }) => {
         setSkills(skills.filter(x => x.id !== id));
     }
 
-    const handleSave = () => {
-        changes.forEach(change => {
-            if (change.type === "ADD") {
-                const skill: SkillCreate = {
-                    title: change.title,
+    const handleSave = async () => {
+        optimizeChanges(changes).forEach(change => {
+            console.log(change);
+            if (change.type == "ADD") {
+                const skillCreate: SkillCreate = {
+                    title: change.title ?? "unnamed skill",
                     priority: change.priority,
-                    parentId: change.parentId
+                    parentId: change.parentId ?? 0,
                 };
-                addSkill(skill).then(response => {
+
+                addSkill(skillCreate).then(response => {
                     if (response.status === 401) {
                         localStorage.removeItem("access_token");
                         navigate("/login");
                     }
                 });
-            } else if (change.type === "CHANGE") {
-                const skill: SkillUpdate = {
-                    title: change.title,
+            } else if (change.type == "CHANGE") {
+                const skillUpdate: SkillUpdate = {
+                    title: change.title ?? "unnamed skill",
                     priority: change.priority,
-                    id: change.id,
+                    id: change.id ?? 0
                 };
-                editSkill(skill).then(response => {
+
+                editSkill(skillUpdate).then(response => {
                     if (response.status === 401) {
                         localStorage.removeItem("access_token");
                         navigate("/login");
                     }
                 });
-            } else if (change.type === "DELETE") {
-                removeSkill(change.id).then(response => {
+            } else if (change.type == "DELETE") {
+                removeSkill(change.id ?? 0).then(response => {
                     if (response.status === 401) {
                         localStorage.removeItem("access_token");
                         navigate("/login");
                     }
                 })
             }
-        })
-        console.log(changes);
+        });
+
+        // сбросить состояние changes после сохранения
         setChanges([]);
-    }
+    };
 
     const handleCreate = () => {
         const id = getRandomInt(-100, 1);
         const newSkill: SkillChange = {type: "ADD", priority: 0, parentId: 0, id: id, title: "New skill"};
+        console.log(newSkill);
         setChanges([...changes, newSkill]);
+        console.log(newSkill);
         setSkills([...skills, {id: id, priority: 0, title: "New skill", children: null}]);
     };
 
@@ -82,6 +89,8 @@ const CollapsibleSkill = ({skill, changes, onDelete, setChanges}: {
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [children, setChildren] = useState(skill.children ?? []);
+    const [title, setTitle] = useState<string>("");
+    const [priority, setPriority] = useState<number>();
 
     const deleteSkill = (id: number) => {
         setChildren(children.filter(child => child.id !== id));
@@ -101,39 +110,30 @@ const CollapsibleSkill = ({skill, changes, onDelete, setChanges}: {
     const handleDelete = () => {
         const skillToDelete: SkillChange = {type: "DELETE", id: skill.id};
         setChanges([...changes, skillToDelete]);
-        console.log(changes);
         onDelete(skill.id);
     }
 
-    const handleEdit = (event) => {
-        const index = changes.findIndex(e => e.id === skill.id && e.type === "CHANGE");
-        const change = {type: "CHANGE", id: skill.id, title: skill.title, priority: skill.priority};
-
-        switch (event.target.id) {
-            case "title":
-                change.title = event.target.value;
-                break;
-            case "priority":
-                change.priority = event.target.value;
-                break;
-        }
-
-        if (index !== -1) {
-            changes[index] = change;
-            setChanges([...changes]);
-        } else {
-            setChanges(prevChanges => [...prevChanges, change]);
-        }
-        console.log(changes);
+    const handleEdit = () => {
+        const change: SkillChange = {
+            type: "CHANGE",
+            id: skill.id,
+            title: title,
+            priority: priority
+        };
+        console.info(change);
+        setChanges([...changes, change]);
     };
 
     return (
         <li>
             <div className={styles.skill}>
-                <input className={styles.skillTitle} defaultValue={skill.title} id={"title"} onBlur={handleEdit}/>
+
+                <input className={styles.skillTitle} defaultValue={skill.title} id={"title"} onBlur={handleEdit}
+                       onChange={e => setTitle(e.target.value)}
+                />
                 <input className={styles.skillPriority} defaultValue={skill.priority} id={"priority"}
                        onBlur={handleEdit} type={"number"}
-                       onChange={handleEdit}/>
+                       onChange={e => setPriority(Number(e.target.value))}/>
                 <div className={styles.skillButtons}>
                     {children.length > 0 &&
                         <button className={`${styles.toggle} ${styles.skillButton}`}

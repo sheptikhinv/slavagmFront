@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import {login} from "../../api/AuthApi.ts";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {setToken} from "../../utlis/auth.ts";
 
 interface FormValues {
     password: string;
@@ -18,7 +19,7 @@ const Login = () => {
         login(values)
             .then(data => {
                 if (data.accessToken != null) {
-                    localStorage.setItem("access_token", data.accessToken);
+                    setToken(data.accessToken);
                     navigate("/admin");
                 } else {
                     setPasswordIncorrect(true);

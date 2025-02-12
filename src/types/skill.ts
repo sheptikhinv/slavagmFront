@@ -6,6 +6,7 @@ export interface Skill {
 }
 
 export interface SkillChange {
+    changedField?: "PRIORITY" | "TITLE"
     type: "ADD" | "DELETE" | "CHANGE"
     id?: number
     title?: string

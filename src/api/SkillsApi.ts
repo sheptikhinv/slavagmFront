@@ -14,36 +14,25 @@ export const getSkills = async (): Promise<Skill[]> => {
     }
 };
 
-export const addSkill = async (skill: { skill: SkillCreate }) => {
-    try {
-        return await fetch(`${BASE_URL}/skills/add`, {
-            ...createRequestConfig("POST"),
-            body: JSON.stringify(skill)
-        });
-    } catch (error) {
-        console.error(error);
-    }
+export const addSkill = async (skill: SkillCreate) => {
+    const url = `${BASE_URL}/skills/add`;
+    return await fetch(url, {
+        ...createRequestConfig("POST"),
+        body: JSON.stringify(skill)
+    });
 };
 
-export const removeSkill = async (id: int) => {
-    try {
-        return await fetch(`${BASE_URL}/skills/delete/${id}`, {
-            ...createRequestConfig("DELETE")
-        });
-    } catch (error) {
-        console.error(error);
-        return;
-    }
+export const editSkill = async (skill: SkillUpdate) => {
+    const url = `${BASE_URL}/skills/update`
+    return await fetch(url, {
+        ...createRequestConfig("PUT"),
+        body: JSON.stringify(skill)
+    });
 };
 
-export const editSkill = async (skill: { skill: SkillUpdate }) => {
-    console.log(skill);
-    try {
-        return await fetch(`${BASE_URL}/skills/update`, {
-            ...createRequestConfig("PUT"),
-            body: JSON.stringify(skill)
-        });
-    } catch (error) {
-        console.error(error);
-    }
+export const removeSkill = async (id: number) => {
+    const url = `${BASE_URL}/skills/delete/${id}`;
+    return await fetch(url, {
+        ...createRequestConfig("DELETE")
+    });
 };
