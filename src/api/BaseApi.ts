@@ -1,4 +1,4 @@
-const BASE_URL: string = "http://localhost:5226";
+const BASE_URL: string = "http://localhost:5075/api";
 
 const createRequestConfig = (method: "GET" | "POST" | "DELETE" | "PUT") => {
     const token = localStorage.getItem("access_token");

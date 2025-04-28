@@ -1,15 +1,17 @@
 import {jwtDecode} from "jwt-decode";
 
+const TOKEN_KEY = 'access_token';
+
 export const setToken = (access_token: string) => {
-    localStorage.setItem('access_token', access_token);
+    localStorage.setItem(TOKEN_KEY, access_token);
 };
 
 export const getToken = () => {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem(TOKEN_KEY);
 }
 
 export const removeToken = () => {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem(TOKEN_KEY);
 }
 
 export const isTokenValid = () => {

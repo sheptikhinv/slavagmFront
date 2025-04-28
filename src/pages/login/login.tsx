@@ -18,8 +18,8 @@ const Login = () => {
     const onSubmit = (values: FormValues) => {
         login(values)
             .then(data => {
-                if (data.accessToken != null) {
-                    setToken(data.accessToken);
+                if (data.token != null) {
+                    setToken(data.token);
                     navigate("/admin");
                 } else {
                     setPasswordIncorrect(true);
@@ -41,11 +41,12 @@ const Login = () => {
                             <input
                                 className={`${styles.textInput} ${passwordIncorrect ? styles.passwordIncorrect : ""}`}
                                 type={"password"}
+                                id={"password"}
                                 placeholder={"Пароль"}
                                 {...register("password", {onChange: () => setPasswordIncorrect(false)})}/>
-                            {passwordIncorrect && <label className={styles.errorLabel}>
-                                Неверный пароль,<br/>
-                                перестань пожалуйста 🥺
+                            {passwordIncorrect && <label htmlFor="password" className={styles.errorLabel}>
+                              Неверный пароль,<br/>
+                              перестань пожалуйста 🥺
                             </label>}
                             <button className={styles.loginButton}>Войти</button>
                         </div>

@@ -3,7 +3,7 @@ import {Skill, SkillCreate, SkillUpdate} from "../types/skill.ts";
 
 export const getSkills = async (): Promise<Skill[]> => {
     try {
-        const response = await fetch(`${BASE_URL}/skills/all`, {
+        const response = await fetch(`${BASE_URL}/skills`, {
             ...createRequestConfig("GET")
         });
         const data: object = await response.json();
@@ -15,7 +15,7 @@ export const getSkills = async (): Promise<Skill[]> => {
 };
 
 export const addSkill = async (skill: SkillCreate) => {
-    const url = `${BASE_URL}/skills/add`;
+    const url = `${BASE_URL}/skills`;
     return await fetch(url, {
         ...createRequestConfig("POST"),
         body: JSON.stringify(skill)
@@ -23,7 +23,7 @@ export const addSkill = async (skill: SkillCreate) => {
 };
 
 export const editSkill = async (skill: SkillUpdate) => {
-    const url = `${BASE_URL}/skills/update`
+    const url = `${BASE_URL}/skills`
     return await fetch(url, {
         ...createRequestConfig("PUT"),
         body: JSON.stringify(skill)
@@ -31,7 +31,7 @@ export const editSkill = async (skill: SkillUpdate) => {
 };
 
 export const removeSkill = async (id: number) => {
-    const url = `${BASE_URL}/skills/delete/${id}`;
+    const url = `${BASE_URL}/skills${id}`;
     return await fetch(url, {
         ...createRequestConfig("DELETE")
     });

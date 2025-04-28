@@ -3,7 +3,7 @@ import {CardType} from "../types/cardType.ts";
 
 export const getCards = async (): Promise<CardType[]> => {
     try {
-        const response = await fetch(`${BASE_URL}/cards/all`, {
+        const response = await fetch(`${BASE_URL}/cards`, {
             ...createRequestConfig("GET")
         });
         const data: object = await response.json();
